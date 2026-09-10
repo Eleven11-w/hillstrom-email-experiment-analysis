@@ -13,9 +13,9 @@
 - Gate B-Business：通过
 - Gate B-Resume：有条件通过，待本人完成一次不超过5分钟的计时讲解
 
-B6 验收记录：16/16 项测试通过；删除 10 个生成 CSV 和 5 个 PNG 后，一键重建成功，CSV 哈希 0 项不一致。
+B6 验收记录：冻结协议补全后18/18项测试通过；最终干净重建覆盖12个生成CSV和5个PNG。
 
-完整报告见 `docs/final_report.md`，冻结方法见 `docs/analysis_plan.md`。
+完整报告见 `docs/final_report.md`，从B0到B6的逐步复现与知识讲解见`docs/Hillstrom_B0-B6_详细分析与学习手册.md`，冻结方法见 `docs/analysis_plan.md`。
 
 ## 数据与冻结基线
 
@@ -75,6 +75,7 @@ python -m venv .venv
 | 数据QC、SRM、平衡 | `results/tables/data_qc.csv`、`srm_check.csv`、`balance_check.csv` |
 | 描述统计与主要结果 | `group_summary.csv`、`experiment_effects.csv` |
 | MDE、Spend精度、调整分析 | `conversion_mde.csv`、`spend_precision.csv`、`adjusted_effects.csv` |
+| 极端值敏感性与经济假设 | `winsorized_spend_effects.csv`、`economic_scenarios.csv` |
 | 探索性分层与交互 | `subgroup_spend_effects.csv`、`interaction_tests.csv` |
 | 最终运行证据 | `results/b6_run_manifest.json` |
 | 阶段/最终报告 | `docs/b2_data_quality_report.md` 至 `docs/b5_subgroup_report.md`、`docs/final_report.md` |

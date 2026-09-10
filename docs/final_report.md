@@ -32,7 +32,7 @@
 
 主要 Spend 分析采用 10,000 次客户级 Bootstrap percentile 95% CI，固定种子 20260908；两个双侧 Welch p 值使用 Holm 方法控制 family-wise alpha=0.05。Welch 区间用于独立交叉核对。访问和转化采用绝对百分点差、边际区间和两比例检验，属于辅助证据。
 
-B4 使用 `recency`、`log1p(history)`、`mens`、`womens`、`newbie`、`zip_code` 和 `channel` 做 OLS/线性概率模型 HC3 调整。B5 仅使用冻结的实验前字段做子组分析，以处理×特征交互检验异质性，并对 8 个交互 p 值做 Holm 校正。
+B4 使用 `recency`、`log1p(history)`、`mens`、`womens`、`newbie`、`zip_code` 和 `channel` 做 OLS/线性概率模型 HC3 调整；同时按冻结协议使用全样本P99.5统一缩尾检查极端值敏感性，并以3档毛利率×3档邮件成本生成假设经济场景。B5 仅使用冻结的实验前字段做子组分析，以处理×特征交互检验异质性，并对 8 个交互 p 值做 Holm 校正。
 
 ## 5. 主要结果
 
@@ -44,6 +44,10 @@ B4 使用 `recency`、`log1p(history)`、`mens`、`womens`、`newbie`、`zip_cod
 两个主要区间均高于 0，支持两种邮件在该历史实验样本中提高两周客均 Spend。Mens - Womens 的次要直接比较为 +$0.345/客户，边际 95% CI [$0.028, $0.655]，名义 p=0.0305；它没有进入主要检验族，因此只能说样本结果提示 Mens 更高，不能宣称已确认“赢家”。
 
 Spend 的 98.75%–99.43% 为 0，正值长尾至 $499。P1 区间宽度为 $0.570，P2 为 $0.511。若只讨论收入门槛，95% 下界分别支持最多 $0.487/客户和 $0.171/客户的最低增量收入要求。若判断利润，应满足 `毛利率 × 收入增量下界 > 每次发送成本`，当前缺少所需输入。
+
+使用全样本P99.5 `$68.37135` 统一缩尾后，P1为+$0.344（Welch 95% CI [$0.242, $0.447]，Holm p=1.07e-10），P2为+$0.170（[$0.075, $0.264]，Holm p=0.000428）。效应幅度下降说明极端正值影响均值大小，但方向和主要证据仍稳定。缩尾结果是敏感性分析，不替换原始Spend主结果。
+
+在20%/40%/60%毛利率与$0.01/$0.05/$0.10邮件成本的18个假设场景中，并非所有场景都支持正增量贡献。例如P2在20%毛利率、$0.10成本时点估计贡献为-$0.015/客户。这进一步说明收入效应不能直接写成利润或ROI。
 
 ## 6. 访问、转化与 Spend 机制
 
@@ -78,7 +82,7 @@ B5 中最强线索是 Womens 邮件在 `newbie=1` 客户中的效应 +$0.732，�
 |---|---|---|
 | 数据质量、SRM、平衡 | `data_qc.csv`、`srm_check.csv`、`balance_check.csv` | `src/validate_data.py` |
 | 三组描述与主效应 | `group_summary.csv`、`experiment_effects.csv` | `src/analyze_experiment.py`、图01–03 |
-| MDE与协变量调整 | `conversion_mde.csv`、`spend_precision.csv`、`adjusted_effects.csv` | `src/analyze_b4.py`、图04 |
+| MDE、协变量调整、缩尾与经济场景 | `conversion_mde.csv`、`spend_precision.csv`、`adjusted_effects.csv`、`winsorized_spend_effects.csv`、`economic_scenarios.csv` | `src/analyze_b4.py`、图04 |
 | 子组与交互检验 | `subgroup_spend_effects.csv`、`interaction_tests.csv` | `src/analyze_b5.py`、图05 |
 | 输入、协议、环境、代码与输出哈希 | `results/b6_run_manifest.json` | `src/run_all.py` |
 
@@ -87,5 +91,5 @@ B5 中最强线索是 Womens 邮件在 `newbie=1` 客户中的效应 +$0.732，�
 ## 10. B6门禁结论
 
 - Gate B-Stats：通过。协议、估计量、区间、多重比较、精度和探索性边界完整。
-- Gate B-Repro：通过。16/16 项测试通过；删除 10 个可再生 CSV 和 5 个 PNG 后，单一入口成功重建，10 个 CSV 与删除前哈希全部一致。运行清单记录输入、协议、环境、随机种子、代码与输出哈希。
+- Gate B-Repro：通过。协议补全后18/18项测试通过；最终干净重建验收覆盖12个可再生CSV和5个PNG。运行清单记录输入、协议、环境、随机种子、代码与输出哈希。
 - Gate B-Business / Gate B-Resume：留待 B7 最终验收；本报告已提供证据和边界，但尚未完成面试问答与讲解演练。

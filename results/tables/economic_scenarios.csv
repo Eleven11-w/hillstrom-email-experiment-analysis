@@ -1,0 +1,19 @@
+analysis_tier,contrast,gross_margin_rate_assumption,email_cost_per_assigned_assumption,break_even_spend,incremental_contribution_point,incremental_contribution_ci_low,incremental_contribution_ci_high,positive_at_point,positive_at_ci_low,warning
+hypothetical_business_scenario,P1,0.2,0.01,0.049999999999999996,0.14396543117890737,0.08747390018126038,0.2014051882939749,True,True,assumed margin and cost; not observed ROI or profit
+hypothetical_business_scenario,P1,0.2,0.05,0.25,0.10396543117890737,0.04747390018126037,0.16140518829397493,True,True,assumed margin and cost; not observed ROI or profit
+hypothetical_business_scenario,P1,0.2,0.1,0.5,0.05396543117890737,-0.0025260998187396355,0.11140518829397492,True,False,assumed margin and cost; not observed ROI or profit
+hypothetical_business_scenario,P1,0.4,0.01,0.024999999999999998,0.29793086235781474,0.18494780036252073,0.41281037658794983,True,True,assumed margin and cost; not observed ROI or profit
+hypothetical_business_scenario,P1,0.4,0.05,0.125,0.25793086235781476,0.14494780036252075,0.37281037658794985,True,True,assumed margin and cost; not observed ROI or profit
+hypothetical_business_scenario,P1,0.4,0.1,0.25,0.20793086235781474,0.09494780036252073,0.32281037658794987,True,True,assumed margin and cost; not observed ROI or profit
+hypothetical_business_scenario,P1,0.6,0.01,0.016666666666666666,0.451896293536722,0.2824217005437811,0.6242155648819248,True,True,assumed margin and cost; not observed ROI or profit
+hypothetical_business_scenario,P1,0.6,0.05,0.08333333333333334,0.411896293536722,0.2424217005437811,0.5842155648819247,True,True,assumed margin and cost; not observed ROI or profit
+hypothetical_business_scenario,P1,0.6,0.1,0.16666666666666669,0.36189629353672204,0.19242170054378108,0.5342155648819248,True,True,assumed margin and cost; not observed ROI or profit
+hypothetical_business_scenario,P2,0.2,0.01,0.049999999999999996,0.07488244318731936,0.0242800094010504,0.12643936627322658,True,True,assumed margin and cost; not observed ROI or profit
+hypothetical_business_scenario,P2,0.2,0.05,0.25,0.034882443187319354,-0.0157199905989496,0.08643936627322658,True,False,assumed margin and cost; not observed ROI or profit
+hypothetical_business_scenario,P2,0.2,0.1,0.5,-0.01511755681268065,-0.0657199905989496,0.03643936627322658,False,False,assumed margin and cost; not observed ROI or profit
+hypothetical_business_scenario,P2,0.4,0.01,0.024999999999999998,0.1597648863746387,0.0585600188021008,0.26287873254645316,True,True,assumed margin and cost; not observed ROI or profit
+hypothetical_business_scenario,P2,0.4,0.05,0.125,0.11976488637463871,0.0185600188021008,0.22287873254645318,True,True,assumed margin and cost; not observed ROI or profit
+hypothetical_business_scenario,P2,0.4,0.1,0.25,0.06976488637463871,-0.0314399811978992,0.17287873254645317,True,False,assumed margin and cost; not observed ROI or profit
+hypothetical_business_scenario,P2,0.6,0.01,0.016666666666666666,0.244647329561958,0.0928400282031512,0.39931809881967967,True,True,assumed margin and cost; not observed ROI or profit
+hypothetical_business_scenario,P2,0.6,0.05,0.08333333333333334,0.20464732956195802,0.05284002820315119,0.3593180988196797,True,True,assumed margin and cost; not observed ROI or profit
+hypothetical_business_scenario,P2,0.6,0.1,0.16666666666666669,0.154647329561958,0.0028400282031511848,0.30931809881967964,True,True,assumed margin and cost; not observed ROI or profit

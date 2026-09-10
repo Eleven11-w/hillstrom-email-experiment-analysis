@@ -3,7 +3,7 @@
   "project": "hillstrom-email-ab-test",
   "stage": "B6",
   "status": "completed",
-  "generated_at": "2026-09-10T10:29:44+08:00",
+  "generated_at": "2026-09-10T11:56:38+08:00",
   "input": {
     "path": "data/raw/hillstrom.csv",
     "sha256": "0E5893329D8B93CEFECC571777672028290AB69865718020C78C7284F291AECE"
@@ -41,18 +41,18 @@
   },
   "git": {
     "branch": "main",
-    "commit_at_execution": "604d57e99a828433c03e84522bc5a84b2926feed",
-    "worktree_clean_before_manifest_write": true,
+    "commit_at_execution": "fea869656d6d15d0570cfc0f14bba06d8c426e7d",
+    "worktree_clean_before_manifest_write": false,
     "note": "commit_at_execution identifies the code used for this run; the execution manifest itself may be committed later"
   },
   "code_sha256": {
     "src/__init__.py": "74C17BD4C48B86B478118F3B316D260F74874CBA7E2C007E74CBF36AD7A6AC9A",
-    "src/analyze_b4.py": "F89EACF3C713448833F494F4A31780EE910B90F2214C07B43352C888E066CEE6",
+    "src/analyze_b4.py": "F7F97067158D4078ADF00048BB9D4C2CDC5E83E1EE9470BC478AE3D8FE32CB20",
     "src/analyze_b5.py": "C81E4D590C4697B3B2D8ECF84A25A93CD3E37D480BAD5CD2FD3FDFD69244E446",
     "src/analyze_experiment.py": "168EC3233E28D8957B1BE10CE4AC2792DED5C73191942CF7D3963AEA1858D8F8",
-    "src/run_all.py": "903C3CA6EE70122575C37DAE665203027C81EE1B343881102ADDB18B443051FD",
+    "src/run_all.py": "BECB75052361A27D90B0ABE0F090707DD7A164170DCB95500E959BDE5DC4B6DB",
     "src/validate_data.py": "D8A6D7CCD460877E201D37E08548D802DA8C18A305E431A1DE0B116D55B78FC6",
-    "tests/test_b4.py": "738C65817ADA4714642FF50EBB90F5D47786666161122DAF804CD86EE251C56E",
+    "tests/test_b4.py": "C546F8115F7BB1162E77C402DCB56CF942F53B76DFCCAABD5860B6010BCCEE87",
     "tests/test_b5.py": "CBCAC39B7C5B2B940FC9B0A98F8990B3756A43D677DF1E256F5CA24E610AC734",
     "tests/test_b6_contract.py": "557BB1D81025FA52A5D037004FCE2A3D7D154F197DEBE6B13A2C664DAF03A982",
     "tests/test_estimands.py": "3A9FE30790419F19AE4AC3B6CC85BFC116A51AEA7DE7DECFFDB25EDFB582E707",
@@ -71,6 +71,8 @@
     "results/tables/conversion_mde.csv": "7AF832E412A79E5B6943613DA9BF8CF78FB90DF025E59BD8AFB7B6AFC90B471D",
     "results/tables/spend_precision.csv": "8CC87D60C55CFB31077C4A2D629F75D64D3ADCB481CD6AEDD65A85CD8238F0CD",
     "results/tables/adjusted_effects.csv": "A7FEA81EC95FDA39437E2730FC892825E79A24201074A52388939D60069BD028",
+    "results/tables/winsorized_spend_effects.csv": "51BF321221FD2FA2FBB4B52B83FE58EAF2DD6CD3F663C06F4797610F915D7E2B",
+    "results/tables/economic_scenarios.csv": "2BF995946211DB084F27270143C299CBCB840E7E193AEDBA6E41D44E0D94527C",
     "results/figures/04_adjusted_vs_unadjusted.png": "F210A6716D40BA255D9571EC0D3D1FF71DFD02A3BD626454947C95B4738BD137",
     "results/tables/subgroup_spend_effects.csv": "5581288E3B3280F494FC6EDE4FF3BE3C67B15CCDB5BA7BE60EE07E103E649D92",
     "results/tables/interaction_tests.csv": "589F52297A8B698746A75B3B19650797F3E80D308343E15AFBD5BC7E7420879E",
@@ -82,6 +84,8 @@
     "conversion_mde": 2,
     "spend_precision": 2,
     "adjusted_effects": 6,
+    "winsorized_spend_effects": 3,
+    "economic_scenarios": 18,
     "subgroup_spend_effects": 18,
     "interaction_tests": 8
   },

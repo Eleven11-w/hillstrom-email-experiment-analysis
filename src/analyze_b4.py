@@ -14,6 +14,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+from src.analyze_experiment import CONTRASTS, holm_adjust, welch_effect
+
 
 ALLOWED_COVARIATES = {
     "recency",
@@ -105,6 +107,73 @@ def make_spend_precision_table(b3_effects: pd.DataFrame) -> pd.DataFrame:
     ).reset_index(drop=True)
 
 
+def winsorized_spend_effects(frame: pd.DataFrame) -> pd.DataFrame:
+    cap = float(frame["spend"].quantile(0.995))
+    clipped = frame.assign(spend=frame["spend"].clip(upper=cap))
+    rows = []
+    confirmatory_p_values = []
+    for contrast, treatment_group, comparison_group, tier in CONTRASTS:
+        treatment = clipped.loc[clipped["segment"] == treatment_group, "spend"].to_numpy(dtype=float)
+        comparison = clipped.loc[clipped["segment"] == comparison_group, "spend"].to_numpy(dtype=float)
+        result = welch_effect(treatment, comparison)
+        if tier == "confirmatory":
+            confirmatory_p_values.append(result["p_value"])
+        rows.append(
+            {
+                "analysis_tier": tier,
+                "contrast": contrast,
+                "winsor_quantile": 0.995,
+                "pooled_cap": cap,
+                "n_treatment": treatment.size,
+                "n_comparison": comparison.size,
+                "mean_treatment_winsorized": treatment.mean(),
+                "mean_comparison_winsorized": comparison.mean(),
+                "absolute_effect": result["effect"],
+                "ci_low": result["welch_ci_low"],
+                "ci_high": result["welch_ci_high"],
+                "p_raw": result["p_value"],
+                "p_holm": np.nan,
+                "method": "pooled P99.5 winsorization; two-sided Welch test and CI",
+            }
+        )
+    adjusted = holm_adjust(confirmatory_p_values)
+    adjusted_index = 0
+    for row in rows:
+        if row["analysis_tier"] == "confirmatory":
+            row["p_holm"] = adjusted[adjusted_index]
+            adjusted_index += 1
+    return pd.DataFrame(rows)
+
+
+def economic_scenarios(b3_effects: pd.DataFrame) -> pd.DataFrame:
+    primary = b3_effects.query("metric == 'spend' and contrast in ['P1', 'P2']")
+    rows = []
+    for effect in primary.itertuples():
+        for gross_margin_rate in [0.20, 0.40, 0.60]:
+            for email_cost_per_assigned in [0.01, 0.05, 0.10]:
+                rows.append(
+                    {
+                        "analysis_tier": "hypothetical_business_scenario",
+                        "contrast": effect.contrast,
+                        "gross_margin_rate_assumption": gross_margin_rate,
+                        "email_cost_per_assigned_assumption": email_cost_per_assigned,
+                        "break_even_spend": email_cost_per_assigned / gross_margin_rate,
+                        "incremental_contribution_point": effect.absolute_effect * gross_margin_rate
+                        - email_cost_per_assigned,
+                        "incremental_contribution_ci_low": effect.ci_low * gross_margin_rate
+                        - email_cost_per_assigned,
+                        "incremental_contribution_ci_high": effect.ci_high * gross_margin_rate
+                        - email_cost_per_assigned,
+                        "positive_at_point": effect.absolute_effect * gross_margin_rate
+                        > email_cost_per_assigned,
+                        "positive_at_ci_low": effect.ci_low * gross_margin_rate
+                        > email_cost_per_assigned,
+                        "warning": "assumed margin and cost; not observed ROI or profit",
+                    }
+                )
+    return pd.DataFrame(rows)
+
+
 def adjusted_effects(frame: pd.DataFrame, b3_effects: pd.DataFrame) -> pd.DataFrame:
     covariates = {"recency", "history", "mens", "womens", "newbie", "zip_code", "channel"}
     validate_covariates(covariates)
@@ -185,13 +254,17 @@ def analyze_b4(
     b3_effects: pd.DataFrame,
     tables_dir: Path,
     figures_dir: Path,
-) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, Path]:
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, Path]:
     tables_dir.mkdir(parents=True, exist_ok=True)
     mde = make_mde_table(frame)
     precision = make_spend_precision_table(b3_effects)
     adjusted = adjusted_effects(frame, b3_effects)
+    winsorized = winsorized_spend_effects(frame)
+    scenarios = economic_scenarios(b3_effects)
     mde.to_csv(tables_dir / "conversion_mde.csv", index=False)
     precision.to_csv(tables_dir / "spend_precision.csv", index=False)
     adjusted.to_csv(tables_dir / "adjusted_effects.csv", index=False)
+    winsorized.to_csv(tables_dir / "winsorized_spend_effects.csv", index=False)
+    scenarios.to_csv(tables_dir / "economic_scenarios.csv", index=False)
     figure = make_adjustment_figure(adjusted, figures_dir)
-    return mde, precision, adjusted, figure
+    return mde, precision, adjusted, winsorized, scenarios, figure

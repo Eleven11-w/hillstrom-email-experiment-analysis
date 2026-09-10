@@ -68,7 +68,9 @@ def main() -> None:
         replicates=BOOTSTRAP_REPLICATES,
         seed=BOOTSTRAP_SEED,
     )
-    mde, precision, adjusted, b4_figure = analyze_b4(frame, effects, tables_dir, figures_dir)
+    mde, precision, adjusted, winsorized, scenarios, b4_figure = analyze_b4(
+        frame, effects, tables_dir, figures_dir
+    )
     subgroup_effects, interactions, b5_figure = analyze_b5(frame, tables_dir, figures_dir)
 
     generated_outputs = [
@@ -81,6 +83,8 @@ def main() -> None:
         tables_dir / "conversion_mde.csv",
         tables_dir / "spend_precision.csv",
         tables_dir / "adjusted_effects.csv",
+        tables_dir / "winsorized_spend_effects.csv",
+        tables_dir / "economic_scenarios.csv",
         b4_figure,
         tables_dir / "subgroup_spend_effects.csv",
         tables_dir / "interaction_tests.csv",
@@ -120,6 +124,8 @@ def main() -> None:
             "conversion_mde": len(mde),
             "spend_precision": len(precision),
             "adjusted_effects": len(adjusted),
+            "winsorized_spend_effects": len(winsorized),
+            "economic_scenarios": len(scenarios),
             "subgroup_spend_effects": len(subgroup_effects),
             "interaction_tests": len(interactions),
         },
