@@ -1,0 +1,51 @@
+{
+  "manifest_version": "1.0",
+  "project": "hillstrom-email-ab-test",
+  "stage": "B1",
+  "stage_status": "completed",
+  "generated_at": "2026-09-08T17:30:10+08:00",
+  "analysis_status": "not_started",
+  "input_data": {
+    "path": "data/raw/hillstrom.csv",
+    "sha256": "0E5893329D8B93CEFECC571777672028290AB69865718020C78C7284F291AECE",
+    "bytes": 3964977,
+    "rows": 64000,
+    "columns": 12,
+    "read_only": true
+  },
+  "analysis_protocol": {
+    "path": "docs/analysis_plan.md",
+    "version": "1.0",
+    "sha256": "43A7B844B3A0EC01DC0108D1B19ECC6A52FB9CA2992E9D9994C25474E82A90B8",
+    "frozen_at": "2026-09-08T17:30:10+08:00",
+    "read_only": true,
+    "blinded": false,
+    "preregistered": false
+  },
+  "planned_randomness": {
+    "bootstrap_seed": 20260908,
+    "bootstrap_replicates": 10000
+  },
+  "environment": {
+    "python": "3.12.7",
+    "pandas": "3.0.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.0",
+    "statsmodels": "0.15.0",
+    "matplotlib": "3.11.1",
+    "seaborn": "0.13.2",
+    "pytest": "9.1.1"
+  },
+  "git": {
+    "branch": "main",
+    "commit": null,
+    "note": "Local repository initialized; no commit existed at B1 freeze time. Protocol integrity is anchored by SHA-256."
+  },
+  "disclosure": "Before protocol freeze, a third-party search snippet exposed an approximate combined any-email versus no-email conversion result. No project-specific three-arm outcome or spend contrast had been calculated.",
+  "generated_outputs": [],
+  "notes": [
+    "This manifest freezes B1 metadata only.",
+    "No group-level visit, conversion, or spend analysis was run in B1.",
+    "A later full run must preserve this B1 protocol hash and create a separate execution manifest or revision record."
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "manifest_version": "1.0",
+  "project": "hillstrom-email-ab-test",
+  "stage": "B6",
+  "status": "completed",
+  "generated_at": "2026-09-10T10:26:29+08:00",
+  "input": {
+    "path": "data/raw/hillstrom.csv",
+    "sha256": "0E5893329D8B93CEFECC571777672028290AB69865718020C78C7284F291AECE"
+  },
+  "protocol": {
+    "path": "docs/analysis_plan.md",
+    "sha256": "43A7B844B3A0EC01DC0108D1B19ECC6A52FB9CA2992E9D9994C25474E82A90B8"
+  },
+  "randomness": {
+    "bootstrap_seed": 20260908,
+    "bootstrap_replicates": 10000
+  },
+  "validation": {
+    "input_sha256": "0E5893329D8B93CEFECC571777672028290AB69865718020C78C7284F291AECE",
+    "rows": 64000,
+    "columns": 12,
+    "srm_chi_square": 0.20253125000000002,
+    "srm_p_value": 0.9036929575604196,
+    "balance_review_flags": 0,
+    "max_abs_continuous_smd": 0.00761286832154239,
+    "max_abs_categorical_difference": 0.008383933045561787,
+    "conversion_0_spend_positive": 0,
+    "conversion_1_spend_zero": 0,
+    "conversion_1_visit_0": 0
+  },
+  "environment": {
+    "python": "3.12.7",
+    "pandas": "3.0.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.0",
+    "statsmodels": "0.15.0",
+    "matplotlib": "3.11.1",
+    "seaborn": "0.13.2",
+    "pytest": "9.1.1"
+  },
+  "git": {
+    "branch": "main",
+    "commit_at_execution": null,
+    "worktree_clean_before_manifest_write": false,
+    "note": "commit_at_execution identifies the code used for this run; the execution manifest itself may be committed later"
+  },
+  "code_sha256": {
+    "src/__init__.py": "74C17BD4C48B86B478118F3B316D260F74874CBA7E2C007E74CBF36AD7A6AC9A",
+    "src/analyze_b4.py": "F89EACF3C713448833F494F4A31780EE910B90F2214C07B43352C888E066CEE6",
+    "src/analyze_b5.py": "C81E4D590C4697B3B2D8ECF84A25A93CD3E37D480BAD5CD2FD3FDFD69244E446",
+    "src/analyze_experiment.py": "168EC3233E28D8957B1BE10CE4AC2792DED5C73191942CF7D3963AEA1858D8F8",
+    "src/run_all.py": "903C3CA6EE70122575C37DAE665203027C81EE1B343881102ADDB18B443051FD",
+    "src/validate_data.py": "D8A6D7CCD460877E201D37E08548D802DA8C18A305E431A1DE0B116D55B78FC6",
+    "tests/test_b4.py": "738C65817ADA4714642FF50EBB90F5D47786666161122DAF804CD86EE251C56E",
+    "tests/test_b5.py": "CBCAC39B7C5B2B940FC9B0A98F8990B3756A43D677DF1E256F5CA24E610AC734",
+    "tests/test_b6_contract.py": "557BB1D81025FA52A5D037004FCE2A3D7D154F197DEBE6B13A2C664DAF03A982",
+    "tests/test_estimands.py": "3A9FE30790419F19AE4AC3B6CC85BFC116A51AEA7DE7DECFFDB25EDFB582E707",
+    "tests/test_validation.py": "E0498FBC435822CE5029BB9C3CD0D73AD1B1AB7B5201B790F2687B05F744A2FC",
+    "requirements.txt": "27F81AED05755E2ABFE913B40F3209B4A8E65CD6034F9270B1292473083163F3"
+  },
+  "generated_outputs_sha256": {
+    "results/tables/data_qc.csv": "DACC4AB8E93DED07CA11D68883A1A53AD91C905F97FBC1D89B11183B4458CC3B",
+    "results/tables/srm_check.csv": "7C538A2928CDA8DC83DF2D0BC13DF317BB045EAF4545DCC72001293D1A2E19EC",
+    "results/tables/balance_check.csv": "1766795F20C50B07943EE660E5A38F9E904BF274D54B3FDB54352D31C3454ACC",
+    "results/tables/group_summary.csv": "01FBBA6679F6750C91E5A55BA53A0FB3BD2F8F48BC928BC2D23243C8CB0A97C7",
+    "results/tables/experiment_effects.csv": "78EC13EA3034453B0B080F33EB50BDB0A6AB694634370B66E77C662EA6315849",
+    "results/figures/01_visit_conversion_rates.png": "A8E799FAC6ACAB54EBC2C02FC8BA0834BCBAF6EF79CB0E87C4C3C32C144F6A32",
+    "results/figures/02_primary_spend_effects.png": "315CF0C02BE3F2D388F73F7C98DE97D47CF11C4D31A73C40591E6F5137E50BA6",
+    "results/figures/03_spend_distribution.png": "4B1C2C8753E034FE8827521715E5C23A01C7CF78BB71AAAE3C2B0481FBB7F1A4",
+    "results/tables/conversion_mde.csv": "7AF832E412A79E5B6943613DA9BF8CF78FB90DF025E59BD8AFB7B6AFC90B471D",
+    "results/tables/spend_precision.csv": "8CC87D60C55CFB31077C4A2D629F75D64D3ADCB481CD6AEDD65A85CD8238F0CD",
+    "results/tables/adjusted_effects.csv": "A7FEA81EC95FDA39437E2730FC892825E79A24201074A52388939D60069BD028",
+    "results/figures/04_adjusted_vs_unadjusted.png": "F210A6716D40BA255D9571EC0D3D1FF71DFD02A3BD626454947C95B4738BD137",
+    "results/tables/subgroup_spend_effects.csv": "5581288E3B3280F494FC6EDE4FF3BE3C67B15CCDB5BA7BE60EE07E103E649D92",
+    "results/tables/interaction_tests.csv": "589F52297A8B698746A75B3B19650797F3E80D308343E15AFBD5BC7E7420879E",
+    "results/figures/05_subgroup_spend_effects.png": "23F433B5639803FF190059058289CC2BD5364DB92B99DD798F2D1831A643781D"
+  },
+  "row_counts": {
+    "group_summary": 3,
+    "experiment_effects": 9,
+    "conversion_mde": 2,
+    "spend_precision": 2,
+    "adjusted_effects": 6,
+    "subgroup_spend_effects": 18,
+    "interaction_tests": 8
+  },
+  "gate_evidence": {
+    "b_stats": "pass",
+    "b_repro": "pass",
+    "holm_significant_subgroup_interactions": 0,
+    "final_report": "docs/final_report.md",
+    "readme": "README.md"
+  }
+}

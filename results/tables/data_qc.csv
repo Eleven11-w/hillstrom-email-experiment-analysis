@@ -1,0 +1,8 @@
+check,value,status,details
+sha256,0E5893329D8B93CEFECC571777672028290AB69865718020C78C7284F291AECE,pass,matches frozen input
+rows,64000,pass,expected 64000
+columns,12,pass,expected 12
+missing_cells,0,pass,all required
+conversion_0_spend_positive,0,pass,frozen protocol requires audit if nonzero
+conversion_1_spend_zero,0,pass,frozen protocol requires audit if nonzero
+conversion_1_visit_0,0,pass,frozen protocol requires audit if nonzero

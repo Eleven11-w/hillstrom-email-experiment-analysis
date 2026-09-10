@@ -1,0 +1,3 @@
+contrast,metric,n_treatment,n_control,control_baseline_rate,alpha_two_sided,target_power,mde_absolute,mde_percentage_points,reference_only,method
+P1,conversion,21307,21306,0.005726086548390125,0.05,0.8,0.002229884613981505,0.2229884613981505,True,normal approximation for two independent proportions
+P2,conversion,21387,21306,0.005726086548390125,0.05,0.8,0.0022276287291969586,0.22276287291969588,True,normal approximation for two independent proportions
