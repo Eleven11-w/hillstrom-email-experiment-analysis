@@ -3,7 +3,7 @@
   "project": "hillstrom-email-ab-test",
   "stage": "B6",
   "status": "completed",
-  "generated_at": "2026-09-13T19:00:58+08:00",
+  "generated_at": "2026-09-13T19:21:51+08:00",
   "input": {
     "path": "data/raw/hillstrom.csv",
     "sha256": "0E5893329D8B93CEFECC571777672028290AB69865718020C78C7284F291AECE"
@@ -41,7 +41,7 @@
   },
   "git": {
     "branch": "main",
-    "commit_at_execution": "99c39e488e0dc4d60047ab2075a765893bff8f93",
+    "commit_at_execution": "00783dfe565edfd810421174ec349b1780ff3eea",
     "worktree_clean_before_manifest_write": true,
     "note": "commit_at_execution identifies the code used for this run; the execution manifest itself may be committed later"
   },
@@ -53,7 +53,7 @@
     "src/plot_style.py": "9C9DA5E551F5D5809C3F1B1A3B90343F61216D41338C76290F13783C1A2E6907",
     "src/run_all.py": "BECB75052361A27D90B0ABE0F090707DD7A164170DCB95500E959BDE5DC4B6DB",
     "src/validate_data.py": "D8A6D7CCD460877E201D37E08548D802DA8C18A305E431A1DE0B116D55B78FC6",
-    "src/verify_release.py": "D1D56A344BF9656561A7D81DBBE21FBAA107016501D7FC9FD427E40F70200789",
+    "src/verify_release.py": "1D9D348D91AB0FB9FD9118CB8F8768D83B6FE326A34C0E544A83D4D26CFFF31E",
     "tests/test_b4.py": "C546F8115F7BB1162E77C402DCB56CF942F53B76DFCCAABD5860B6010BCCEE87",
     "tests/test_b5.py": "CBCAC39B7C5B2B940FC9B0A98F8990B3756A43D677DF1E256F5CA24E610AC734",
     "tests/test_b6_contract.py": "557BB1D81025FA52A5D037004FCE2A3D7D154F197DEBE6B13A2C664DAF03A982",
