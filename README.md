@@ -34,7 +34,13 @@
 
 ![Spend零值与正值长尾](results/figures/03_spend_distribution.png)
 
-补充图表：[协变量调整对比](results/figures/04_adjusted_vs_unadjusted.png) · [探索性子组效应](results/figures/05_subgroup_spend_effects.png)
+### 协变量调整稳健性
+
+![未调整与协变量调整效应对比](results/figures/04_adjusted_vs_unadjusted.png)
+
+### 探索性子组效应
+
+![预定义客户子组的探索性Spend效应](results/figures/05_subgroup_spend_effects.png)
 
 ## 从干净克隆开始复现
 
