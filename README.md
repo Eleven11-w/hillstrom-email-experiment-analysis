@@ -142,4 +142,4 @@ hillstrom-email-experiment-analysis/
 - Gate B-Resume：有条件通过，待本人完成一次不超过5分钟的计时讲解。
 - 当前验证：18/18项测试通过，17个生成输出与B6清单一致。
 
-简历内容见[两条候选bullet](docs/resume_bullets.md)，五分钟讲解和12个追问答案见[面试材料](docs/interview_kit.md)，最终个人动作见[B7验收报告](docs/b7_acceptance_report.md)。
+公开复现记录见[项目完成与交付审计](docs/project_completion_audit.md)。简历内容见[两条候选bullet](docs/resume_bullets.md)，五分钟讲解和12个追问答案见[面试材料](docs/interview_kit.md)，最终个人动作见[B7验收报告](docs/b7_acceptance_report.md)。
