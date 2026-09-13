@@ -49,7 +49,7 @@ def verify_release(root: Path) -> list[str]:
             errors.append(f"row count mismatch: {relative_path}")
 
     readme = (root / "README.md").read_text(encoding="utf-8")
-    for text in ["64,000", "+$0.770", "+$0.424", "18/18"]:
+    for text in ["64,000", "+$0.770", "+$0.424", "18 passed"]:
         if text not in readme:
             errors.append(f"README baseline missing: {text}")
     return errors

@@ -5,8 +5,6 @@
 
 基于64,000名客户的三组公开历史随机实验，评估男装邮件、女装邮件相对不发邮件的两周客均增量销售额。项目覆盖数据完整性、ITT估计、Bootstrap置信区间、多重比较、稳健性检查、探索性异质性与业务情景，并提供从原始数据准备到结果验收的完整复现入口。
 
-> **诚信边界**：这是公开历史实验的再分析，不是本人设计或上线的实验，也不声称真实预注册或盲态分析。`Spend`是销售收入，不是利润；没有真实成本与毛利数据时不报告ROI。
-
 ## 一分钟结论
 
 | 对比 | 两周客均Spend增量 | Bootstrap 95% CI | Holm校正p值 | 结论 |
@@ -97,7 +95,7 @@ hillstrom-email-experiment-analysis/
 ├─ data/
 │  ├─ README.md                 # 来源、哈希与字段证据
 │  └─ raw/                      # 本地原始数据，Git忽略
-├─ docs/                        # 协议、阶段报告、总报告与面试材料
+├─ docs/                        # 协议、阶段报告、总报告与学习手册
 ├─ results/
 │  ├─ tables/                   # 12个可复现CSV
 │  ├─ figures/                  # 5张中文图表
@@ -133,13 +131,3 @@ hillstrom-email-experiment-analysis/
 - Spend是收入而不是利润，经济场景不能替代真实成本与毛利。
 - 探索性交互没有通过多重校正，不能据此部署客户定向规则。
 - 图表使用系统中文字体；分析数值和CSV不受字体环境影响。
-
-## 项目状态与简历材料
-
-- B0–B6分析、报告与本地复现：完成。
-- Gate B-Data / B-Stats / B-Business / B-Repro：通过。
-- B7书面材料：完成。
-- Gate B-Resume：有条件通过，待本人完成一次不超过5分钟的计时讲解。
-- 当前验证：18/18项测试通过，17个生成输出与B6清单一致。
-
-公开复现记录见[项目完成与交付审计](docs/project_completion_audit.md)。简历内容见[两条候选bullet](docs/resume_bullets.md)，五分钟讲解和12个追问答案见[面试材料](docs/interview_kit.md)，最终个人动作见[B7验收报告](docs/b7_acceptance_report.md)。
