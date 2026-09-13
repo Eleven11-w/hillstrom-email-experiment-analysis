@@ -2,6 +2,8 @@
 
 状态：通过（2026-09-08）
 
+> 本文是B3完成时形成的阶段记录。B4–B6随后均已完成，项目最终状态与完整结论以`docs/final_report.md`和`results/b6_run_manifest.json`为准。
+
 本阶段严格执行冻结的 `docs/analysis_plan.md`：主要指标为两周全样本客均 Spend，方向统一为“邮件组 - 比较组”，P1/P2 使用 10,000 次客户级 Bootstrap（seed=20260908）、双侧 Welch 检验和 Holm 校正。
 
 ## 组别概况
@@ -36,6 +38,6 @@
 - 固定种子连续两次重跑的 `experiment_effects.csv` SHA-256 均为 `78EC13EA3034453B0B080F33EB50BDB0A6AB694634370B66E77C662EA6315849`。
 - 没有更换主指标、删除样本或按显著性挑选结果。
 - Spend 是收入而非利润；没有邮件成本和毛利率时不能声称 ROI 或利润最优。
-- 这是公开历史随机实验的 ITT 再分析，不是本人设计或上线的实验。B4 稳健性/MDE、B5 分层和 B6 最终报告尚未执行，因此当前数字暂不进入正式简历。
+- 这是公开历史随机实验的ITT再分析；本阶段之后完成的稳健性、分层和最终复现结果见`docs/final_report.md`。
 
 机器可读结果见 `results/tables/group_summary.csv` 和 `experiment_effects.csv`；图表见 `results/figures/`。

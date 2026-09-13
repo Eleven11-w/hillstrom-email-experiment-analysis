@@ -48,9 +48,17 @@ recency,history_segment,history,mens,womens,zip_code,newbie,channel,segment,visi
 .\scripts\prepare_data.ps1
 ```
 
+macOS、Linux或希望统一使用Python的用户可运行：
+
+```bash
+python scripts/prepare_data.py
+```
+
 脚本只在`data/raw/hillstrom.csv`不存在时下载。写入项目目录前会依次校验文件大小、SHA-256、表头和64,000行；任一检查失败都会停止。若目标位置已经存在正确文件，脚本只复核哈希，不重复下载；若已有文件哈希错误，脚本不会覆盖，需要先人工审计文件来源。
 
 发布方下载地址仅提供HTTP，因此固定SHA-256是不可跳过的完整性门禁。脚本不绕过TLS，也不接受哈希不同的镜像文件。
+
+仓库中的MIT License只适用于分析代码和项目文档，不覆盖Hillstrom原始CSV。项目不重新分发原始数据。
 
 ## PowerShell 校验命令
 

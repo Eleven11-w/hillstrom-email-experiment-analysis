@@ -13,7 +13,17 @@ GROUP_LABELS = {
 
 def set_chinese_plot_style(*, context: str = "talk") -> str:
     """Set a reproducible plotting theme and choose an installed CJK font."""
-    preferred = ["Microsoft YaHei", "SimHei", "Noto Sans CJK SC", "WenQuanYi Micro Hei"]
+    preferred = [
+        "Microsoft YaHei",
+        "SimHei",
+        "PingFang SC",
+        "Hiragino Sans GB",
+        "Noto Sans CJK SC",
+        "Noto Sans CJK JP",
+        "WenQuanYi Micro Hei",
+        "WenQuanYi Zen Hei",
+        "Arial Unicode MS",
+    ]
     installed = {font.name for font in font_manager.fontManager.ttflist}
     selected = next((font for font in preferred if font in installed), "DejaVu Sans")
     sns.set_theme(style="whitegrid", context=context)

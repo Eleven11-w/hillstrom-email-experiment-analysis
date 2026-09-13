@@ -90,8 +90,12 @@ def main() -> None:
         tables_dir / "interaction_tests.csv",
         b5_figure,
     ]
-    code_files = sorted((root / "src").glob("*.py")) + sorted((root / "tests").glob("*.py"))
-    code_files.append(root / "requirements.txt")
+    code_files = (
+        sorted((root / "src").glob("*.py"))
+        + sorted((root / "scripts").glob("*.*"))
+        + sorted((root / "tests").glob("*.py"))
+        + [root / ".gitattributes", root / "requirements.txt"]
+    )
     manifest = {
         "manifest_version": "1.0",
         "project": "hillstrom-email-ab-test",

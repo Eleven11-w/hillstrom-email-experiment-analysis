@@ -66,6 +66,15 @@ Release verification passed
 
 `src.run_all`会先校验输入哈希、schema、逻辑规则、SRM和实验前平衡，再生成分析结果。不要绕过主入口挑选脚本运行。
 
+macOS或Linux使用同样的Python 3.12环境，将数据准备命令替换为：
+
+```bash
+./.venv/bin/python scripts/prepare_data.py
+./.venv/bin/python -m pytest -q -p no:cacheprovider
+./.venv/bin/python -m src.run_all
+./.venv/bin/python -m src.verify_release
+```
+
 ## 数据与冻结基线
 
 - 原始发布说明：<https://blog.minethatdata.com/2008/03/minethatdata-e-mail-analytics-and-data.html>
@@ -100,7 +109,9 @@ hillstrom-email-experiment-analysis/
 │  ├─ tables/                   # 12个可复现CSV
 │  ├─ figures/                  # 5张中文图表
 │  └─ b6_run_manifest.json      # 输入、代码、环境和输出哈希
-├─ scripts/prepare_data.ps1     # 下载并验证冻结输入
+├─ scripts/
+│  ├─ prepare_data.ps1          # Windows数据下载与验证
+│  └─ prepare_data.py           # 跨平台数据下载与验证
 ├─ src/
 │  ├─ validate_data.py          # B2数据门禁
 │  ├─ analyze_experiment.py     # B3主分析
@@ -131,3 +142,7 @@ hillstrom-email-experiment-analysis/
 - Spend是收入而不是利润，经济场景不能替代真实成本与毛利。
 - 探索性交互没有通过多重校正，不能据此部署客户定向规则。
 - 图表使用系统中文字体；分析数值和CSV不受字体环境影响。
+
+## 许可
+
+分析代码和项目文档采用[MIT License](LICENSE)。Hillstrom原始CSV不包含在本许可证中，也不随仓库重新分发；使用者应从数据发布方获取，并通过固定SHA-256验证。
