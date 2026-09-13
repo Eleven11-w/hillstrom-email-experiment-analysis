@@ -12,9 +12,9 @@ from statsmodels.stats.proportion import proportion_effectsize
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import seaborn as sns
 
 from src.analyze_experiment import CONTRASTS, holm_adjust, welch_effect
+from src.plot_style import set_chinese_plot_style
 
 
 ALLOWED_COVARIATES = {
@@ -220,14 +220,14 @@ def adjusted_effects(frame: pd.DataFrame, b3_effects: pd.DataFrame) -> pd.DataFr
 
 def make_adjustment_figure(adjusted: pd.DataFrame, figures_dir: Path) -> Path:
     figures_dir.mkdir(parents=True, exist_ok=True)
-    sns.set_theme(style="whitegrid", context="talk")
+    set_chinese_plot_style()
     spend = adjusted.loc[adjusted["metric"] == "spend"].copy()
     fig, ax = plt.subplots(figsize=(10, 5.5), constrained_layout=True)
     y = np.arange(len(spend))
-    offsets = {"Unadjusted ITT": -0.10, "Covariate-adjusted": 0.10}
+    offsets = {"未调整 ITT": -0.10, "协变量调整": 0.10}
     for label, estimate, low, high in [
-        ("Unadjusted ITT", "unadjusted_effect", "unadjusted_ci_low", "unadjusted_ci_high"),
-        ("Covariate-adjusted", "adjusted_effect", "adjusted_ci_low", "adjusted_ci_high"),
+        ("未调整 ITT", "unadjusted_effect", "unadjusted_ci_low", "unadjusted_ci_high"),
+        ("协变量调整", "adjusted_effect", "adjusted_ci_low", "adjusted_ci_high"),
     ]:
         values = spend[estimate].to_numpy()
         ax.errorbar(
@@ -239,9 +239,9 @@ def make_adjustment_figure(adjusted: pd.DataFrame, figures_dir: Path) -> Path:
             label=label,
         )
     ax.axvline(0, color="black", linewidth=1)
-    ax.set_yticks(y, ["Mens email - no email", "Womens email - no email"])
-    ax.set_xlabel("Incremental two-week spend per assigned customer ($)")
-    ax.set_title("Spend conclusions are stable after pre-treatment adjustment")
+    ax.set_yticks(y, ["男装邮件 − 不发邮件", "女装邮件 − 不发邮件"])
+    ax.set_xlabel("每位分配客户的两周增量销售额（美元）")
+    ax.set_title("实验前协变量调整后，销售额结论保持稳定")
     ax.legend(loc="upper right")
     path = figures_dir / "04_adjusted_vs_unadjusted.png"
     fig.savefig(path, dpi=180)

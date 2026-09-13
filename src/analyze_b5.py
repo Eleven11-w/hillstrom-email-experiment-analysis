@@ -12,7 +12,8 @@ from src.analyze_experiment import welch_effect
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import seaborn as sns
+
+from src.plot_style import set_chinese_plot_style
 
 
 ALLOWED_SUBGROUP_FEATURES = {"mens", "womens", "newbie", "channel"}
@@ -143,17 +144,25 @@ def interaction_tests(frame: pd.DataFrame) -> pd.DataFrame:
 
 def make_subgroup_figure(effects: pd.DataFrame, figures_dir: Path) -> Path:
     figures_dir.mkdir(parents=True, exist_ok=True)
-    sns.set_theme(style="whitegrid", context="talk")
+    set_chinese_plot_style(context="notebook")
     fig, axes = plt.subplots(1, 2, figsize=(18, 10), sharex=True, constrained_layout=True)
     for axis, contrast, title in zip(
         axes,
         ["P1", "P2"],
-        ["Mens email - no email", "Womens email - no email"],
+        ["男装邮件 − 不发邮件", "女装邮件 − 不发邮件"],
     ):
         panel = effects.loc[effects["contrast"] == contrast].reset_index(drop=True)
         y = np.arange(len(panel))
+        feature_labels = {
+            "mens": "历史男装购买",
+            "womens": "历史女装购买",
+            "newbie": "新客户",
+            "channel": "历史渠道",
+        }
+        level_labels = {0: "否", 1: "是", "Multichannel": "多渠道", "Phone": "电话", "Web": "网页"}
         labels = [
-            f"{row.feature}={row.level} (n={row.n_treatment}/{row.n_control})"
+            f"{feature_labels[row.feature]}={level_labels[row.level]} "
+            f"(n={row.n_treatment}/{row.n_control})"
             for row in panel.itertuples()
         ]
         values = panel["absolute_effect"].to_numpy()
@@ -168,8 +177,8 @@ def make_subgroup_figure(effects: pd.DataFrame, figures_dir: Path) -> Path:
         axis.set_yticks(y, labels)
         axis.invert_yaxis()
         axis.set_title(title)
-        axis.set_xlabel("Exploratory spend effect per assigned customer ($)")
-    fig.suptitle("Pre-treatment subgroup estimates are hypotheses, not targeting rules")
+        axis.set_xlabel("探索性客均销售额效应（美元）")
+    fig.suptitle("实验前子组效应仅用于生成假设，不是定向规则")
     path = figures_dir / "05_subgroup_spend_effects.png"
     fig.savefig(path, dpi=180)
     plt.close(fig)

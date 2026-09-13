@@ -14,6 +14,8 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import FixedFormatter, FixedLocator, NullFormatter, NullLocator, PercentFormatter
 import seaborn as sns
 
+from src.plot_style import GROUP_LABELS, set_chinese_plot_style
+
 
 GROUPS = ["No E-Mail", "Mens E-Mail", "Womens E-Mail"]
 CONTRASTS = [
@@ -188,14 +190,14 @@ def make_figures(
     frame: pd.DataFrame, summary: pd.DataFrame, effects: pd.DataFrame, figures_dir: Path
 ) -> list[Path]:
     figures_dir.mkdir(parents=True, exist_ok=True)
-    sns.set_theme(style="whitegrid", context="talk")
+    set_chinese_plot_style()
     paths: list[Path] = []
 
     fig, axes = plt.subplots(1, 2, figsize=(13, 5), constrained_layout=True)
     for axis, metric, title in zip(
         axes,
         ["visit", "conversion"],
-        ["Did either email increase two-week visits?", "Did either email increase two-week conversion?"],
+        ["邮件是否提高两周访问率？", "邮件是否提高两周转化率？"],
     ):
         rates, lows, highs = [], [], []
         for group in GROUPS:
@@ -206,8 +208,8 @@ def make_figures(
             highs.append(high)
         x = np.arange(len(GROUPS))
         axis.errorbar(x, rates, yerr=[np.array(rates) - lows, np.array(highs) - rates], fmt="o", capsize=5)
-        axis.set_xticks(x, ["No email", "Mens email", "Womens email"], rotation=15)
-        axis.set_ylabel("Rate")
+        axis.set_xticks(x, [GROUP_LABELS[group] for group in GROUPS], rotation=10)
+        axis.set_ylabel("比例")
         axis.yaxis.set_major_formatter(PercentFormatter(1.0))
         axis.set_title(title)
     path = figures_dir / "01_visit_conversion_rates.png"
@@ -226,9 +228,9 @@ def make_figures(
         capsize=6,
     )
     ax.axvline(0, color="black", linewidth=1)
-    ax.set_yticks(y, ["Mens email - no email", "Womens email - no email"])
-    ax.set_xlabel("Incremental two-week spend per assigned customer ($)")
-    ax.set_title("How much incremental spend did each email create?")
+    ax.set_yticks(y, ["男装邮件 − 不发邮件", "女装邮件 − 不发邮件"])
+    ax.set_xlabel("每位分配客户的两周增量销售额（美元）")
+    ax.set_title("两种邮件分别带来多少客均增量销售额？")
     path = figures_dir / "02_primary_spend_effects.png"
     fig.savefig(path, dpi=180)
     plt.close(fig)
@@ -237,30 +239,39 @@ def make_figures(
     fig, axes = plt.subplots(1, 2, figsize=(14, 5), constrained_layout=True)
     sns.barplot(data=summary, x="group", y="zero_spend_rate", order=GROUPS, ax=axes[0])
     axes[0].set_xticks(np.arange(len(GROUPS)))
-    axes[0].set_xticklabels(["No email", "Mens email", "Womens email"], rotation=15)
+    axes[0].set_xticklabels([GROUP_LABELS[group] for group in GROUPS], rotation=10)
     axes[0].set_xlabel("")
-    axes[0].set_ylabel("Zero-spend share")
-    axes[0].set_ylim(0, 1.05)
+    axes[0].set_ylabel("零消费客户占比")
+    axes[0].set_ylim(0, 1.12)
     axes[0].yaxis.set_major_formatter(PercentFormatter(1.0))
     axes[0].bar_label(
         axes[0].containers[0],
         labels=[f"{value:.2%}" for value in summary.set_index("group").loc[GROUPS, "zero_spend_rate"]],
         padding=3,
     )
-    axes[0].set_title("Most assigned customers spent $0")
-    positive = frame.loc[frame["spend"] > 0]
-    sns.ecdfplot(data=positive, x="spend", hue="segment", hue_order=GROUPS, ax=axes[1])
+    axes[0].set_title("绝大多数分配客户的消费额为0", pad=12)
+    positive = frame.loc[frame["spend"] > 0].assign(
+        segment_cn=lambda data: data["segment"].map(GROUP_LABELS)
+    )
+    sns.ecdfplot(
+        data=positive,
+        x="spend",
+        hue="segment_cn",
+        hue_order=[GROUP_LABELS[group] for group in GROUPS],
+        ax=axes[1],
+    )
     axes[1].set_xscale("log")
     axes[1].set_xlim(25, 550)
     axes[1].xaxis.set_major_locator(FixedLocator([30, 50, 100, 200, 500]))
     axes[1].xaxis.set_major_formatter(FixedFormatter(["$30", "$50", "$100", "$200", "$500"]))
     axes[1].xaxis.set_minor_locator(NullLocator())
     axes[1].xaxis.set_minor_formatter(NullFormatter())
-    axes[1].set_xlabel("Positive two-week spend ($, log scale)")
-    axes[1].set_title("How does positive spend vary by assignment?")
+    axes[1].set_xlabel("正消费客户两周消费额（美元，对数刻度）")
+    axes[1].set_ylabel("累计比例")
+    axes[1].set_title("正消费金额在各实验组如何分布？")
     legend = axes[1].get_legend()
     if legend is not None:
-        legend.set_title("Assignment")
+        legend.set_title("实验分组")
     path = figures_dir / "03_spend_distribution.png"
     fig.savefig(path, dpi=180)
     plt.close(fig)
